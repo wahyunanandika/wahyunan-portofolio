@@ -1,27 +1,30 @@
+/* import font dari google*/
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:wght@300;400&display=swap');
+
+/* ngambil tailwind*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* root elemen paling atas halaman,-font-mono adalah variabel yang bisa dipanggil di mana saja dengan var(--font-mono)*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-serif: 'IBM Plex Serif', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* kalo pengunjung klik link navigas , halaman ga langusng loncat tapi scroll pelan2  ke  section*/
+html {
+  scroll-behavior: smooth;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+body{
+  background-color: #0e1117;/* warna background gelap */
+  color: #e2e8f0;/* warna teks default putih keabu-abuan */
+  font-family: var(--font-mono), monospace;/* pakai font yang tadi didefinisikan */
+  -webkit-font-smoothing: antialiased;/* bikin teks lebih halus di layar */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+::selection {
+  background: #4a7fa520;/* warna highlight waktu teks disorot, biru transparan */
+  color: #4a7fa5;/* warna teksnya jadi biru */
 }
