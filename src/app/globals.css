@@ -1,30 +1,76 @@
-/* import font dari google*/
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:wght@300;400&display=swap');
-
-/* ngambil tailwind*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* root elemen paling atas halaman,-font-mono adalah variabel yang bisa dipanggil di mana saja dengan var(--font-mono)*/
 :root {
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-serif: 'IBM Plex Serif', serif;
+  --paper: #f3f5f2;
+  --panel: #e8ece8;
+  --ink: #18242e;
+  --graphite: #55626b;
+  --rule: #c9d3cf;
+  --link: #23577e;
+  --mark: #b0235f;
 }
 
-/* kalo pengunjung klik link navigas , halaman ga langusng loncat tapi scroll pelan2  ke  section*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131b22;
+    --panel: #19232c;
+    --ink: #e3e9ec;
+    --graphite: #9aa8b1;
+    --rule: #2d3a44;
+    --link: #8cbfe3;
+    --mark: #ee6fa3;
+  }
+}
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
-body{
-  background-color: #0e1117;/* warna background gelap */
-  color: #e2e8f0;/* warna teks default putih keabu-abuan */
-  font-family: var(--font-mono), monospace;/* pakai font yang tadi didefinisikan */
-  -webkit-font-smoothing: antialiased;/* bikin teks lebih halus di layar */
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Archivo Variable', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  font-variation-settings: 'wdth' 100;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wide {
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125;
+}
+.semiwide {
+  font-stretch: 112%;
+  font-variation-settings: 'wdth' 112;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--mark);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 ::selection {
-  background: #4a7fa520;/* warna highlight waktu teks disorot, biru transparan */
-  color: #4a7fa5;/* warna teksnya jadi biru */
+  background: var(--mark);
+  color: var(--paper);
+}
+
+/* The one orchestrated moment: control points appear on the site map in sequence */
+@keyframes plot {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+.plot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: plot 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .plot { animation: none; }
 }

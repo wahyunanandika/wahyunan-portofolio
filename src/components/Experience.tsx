@@ -1,49 +1,39 @@
-import { experience } from '@/lib/data'
+import { experience, education } from '@/lib/data'
+import Section from './Section'
+
+type Row = { year: string; title: string; sub: string; desc: string; points: string[] }
+
+function Rows({ rows }: { rows: Row[] }) {
+  return (
+    <ol className="space-y-10">
+      {rows.map((r) => (
+        <li key={r.title + r.year} className="grid md:grid-cols-12 gap-x-8 gap-y-1">
+          <p className="md:col-span-3 text-sm text-graphite">{r.year}</p>
+          <div className="md:col-span-9 max-w-[44rem]">
+            <h3 className="font-semibold">{r.title}</h3>
+            <p className="text-sm text-graphite">{r.sub}</p>
+            {r.desc && <p className="mt-2 text-[15px]">{r.desc}</p>}
+            {r.points.length > 0 && (
+              <ul className="mt-2 space-y-1.5 list-disc pl-5 marker:text-rule text-[15px] text-graphite">
+                {r.points.map((p) => <li key={p}>{p}</li>)}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
+}
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 px-6 max-w-4xl mx-auto border-t border-[#1e2433]">
-      <p className="text-[11px] text-[#475569] tracking-[0.25em] uppercase mb-12 font-mono">
-        Experience
-      </p>
-
-      <div className="relative">
-        {/* garis vertikal di kiri */}
-        <div className="absolute left-0 top-2 bottom-2 w-px bg-[#1e2433]" />
-
-        <div className="space-y-10 pl-8">
-          {experience.map((exp, i) => (
-            <div key={i} className="relative group">
-              {/* titik di garis timeline, biru kalau active */}
-              <div className={`absolute -left-8 top-1.5 w-[5px] h-[5px] rounded-full border ${
-                exp.active
-                  ? 'border-[#4a7fa5] bg-[#4a7fa5]'
-                  : 'border-[#2a3548] bg-[#0e1117]'
-              }`} />
-
-              {/* tahun */}
-              <p className="text-[10px] text-[#475569] font-mono tracking-widest mb-1">
-                {exp.year}
-              </p>
-
-              {/* nama jabatan */}
-              <h3 className="text-sm text-[#cbd5e1] font-mono mb-0.5">
-                {exp.role}
-              </h3>
-
-              {/* lokasi */}
-              <p className="text-xs text-[#475569] mb-3">
-                {exp.place}
-              </p>
-
-              {/* deskripsi */}
-              <p className="text-sm text-[#64748b] leading-relaxed">
-                {exp.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <>
+      <Section id="experience" title="Experience">
+        <Rows rows={experience.map((e) => ({ year: e.year, title: e.role, sub: `${e.company}, ${e.place}`, desc: e.desc, points: e.points }))} />
+      </Section>
+      <Section id="education" title="Education and training">
+        <Rows rows={education.map((e) => ({ year: e.year, title: e.title, sub: e.place, desc: e.detail, points: [] }))} />
+      </Section>
+    </>
   )
 }

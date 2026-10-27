@@ -1,64 +1,114 @@
-import { projects } from '@/lib/data'
+import { featuredProjects, otherWork, models, earlierProjects, profile, SmallProject } from '@/lib/data'
+import Section from './Section'
+
+function fmt([lat, lon]: [number, number]) {
+  return `${Math.abs(lat).toFixed(2)}°${lat < 0 ? 'S' : 'N'} ${lon.toFixed(2)}°E`
+}
+
+function CompactList({ items }: { items: SmallProject[] }) {
+  return (
+    <ul className="border-t border-rule">
+      {items.map((p) => (
+        <li key={p.name} className="border-b border-rule">
+          <a
+            href={p.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group grid md:grid-cols-12 gap-x-8 gap-y-1 py-4"
+          >
+            <span className="md:col-span-4 font-semibold group-hover:text-link">{p.name}</span>
+            <span className="md:col-span-5 text-sm text-graphite">{p.desc}</span>
+            <span className="md:col-span-3 text-sm text-graphite md:text-right">{p.tags.join(', ')}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6 max-w-4xl mx-auto border-t border-[#1e2433]">
-      <div className="flex justify-between items-baseline mb-12">
-        {/* judul section */}
-        <p className="text-[11px] text-[#475569] tracking-[0.25em] uppercase font-mono">
-          Projects
-        </p>
-        {/* link ke huggingface */}
-        <a
-          href="https://huggingface.co/wahyunan"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[10px] text-[#4a7fa5] font-mono tracking-wider hover:underline"
-        >
-          View all on HuggingFace ↗
+    <>
+      <Section
+        id="work"
+        title="Selected work"
+        intro="Four projects where most of the hard part was getting coordinates, scale and orientation right, with the numbers I measured."
+      >
+        <div className="space-y-20">
+          {featuredProjects.map((p) => (
+            <article key={p.id} id={p.id} className="grid md:grid-cols-12 gap-x-8 gap-y-6">
+              {/* metadata column */}
+              <div className="md:col-span-3 text-sm text-graphite space-y-1">
+                <p>{p.year}</p>
+                <p>{p.place}</p>
+                <p className="font-mono text-xs">{fmt(p.coords)}</p>
+                <div className="pt-3 flex flex-wrap gap-x-4 gap-y-1">
+                  {p.links.map((l) => (
+                    <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer"
+                      className="text-link underline underline-offset-4 decoration-1">
+                      {l.label}
+                    </a>
+                  ))}
+                  {p.status && <span>{p.status}</span>}
+                </div>
+              </div>
+
+              {/* content column */}
+              <div className="md:col-span-9 max-w-[44rem]">
+                <h3 className="semiwide text-[1.375rem] font-semibold leading-snug">{p.name}</h3>
+                <p className="mt-3">{p.desc}</p>
+
+                <ul className="mt-5 space-y-2 list-disc pl-5 marker:text-rule text-[15px] text-graphite">
+                  {p.highlights.map((h) => (
+                    <li key={h}>{h}</li>
+                  ))}
+                </ul>
+
+                {p.results && (
+                  <table className="mt-6 w-full text-sm">
+                    <tbody>
+                      {p.results.map((r) => (
+                        <tr key={r.label} className="border-t border-rule last:border-b">
+                          <th scope="row" className="text-left font-medium py-2 pr-4 align-top">{r.label}</th>
+                          <td className="py-2 font-mono text-[13px] text-graphite text-right">{r.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+                {p.note && <p className="mt-3 text-[13px] text-graphite">{p.note}</p>}
+
+                <p className="mt-5 text-sm text-graphite">Built with {p.tags.join(', ')}.</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-12 gap-x-8 mt-24">
+          <h3 className="md:col-span-3 font-semibold mb-4">Other project work</h3>
+          <ul className="md:col-span-9 max-w-[44rem] space-y-3 list-disc pl-5 marker:text-rule text-[15px] text-graphite">
+            {otherWork.map((w) => (
+              <li key={w}>{w}</li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      <Section
+        id="models"
+        title="Models and demos"
+        intro="A selection of models published on Hugging Face. Spaces sleep when idle and take a minute to wake up."
+      >
+        <CompactList items={models} />
+        <a href={profile.huggingface} target="_blank" rel="noopener noreferrer"
+          className="inline-block mt-6 text-link underline underline-offset-4 decoration-1">
+          More on Hugging Face
         </a>
-      </div>
+      </Section>
 
-      {/* grid 2 kolom untuk project cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* setiap project jadi satu card yang bisa diklik */}
-        {projects.map((proj, i) => ( 
-            <a
-            key={i}
-            href={proj.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block bg-[#131720] border border-[#1e2433] rounded-lg p-5 hover:border-[#2a3548] transition-all duration-200"
-          >
-            {/* kategori project */}
-            <p className="text-[10px] text-[#4a7fa5] font-mono tracking-[0.15em] uppercase mb-2">
-              {proj.type}
-            </p>
-
-            {/* nama project */}
-            <h3 className="text-sm text-[#cbd5e1] font-mono mb-2">
-              {proj.name} <span className="text-[#2a3548] text-xs">↗</span>
-            </h3>
-
-            {/* deskripsi */}
-            <p className="text-xs text-[#64748b] leading-relaxed mb-4">
-              {proj.desc}
-            </p>
-
-            {/* looping tags */}
-            <div className="flex flex-wrap gap-1.5">
-              {proj.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[10px] px-2 py-0.5 border border-[#2a3548] rounded text-[#475569] font-mono"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </a>
-        ))}
-      </div>
-    </section>
+      <Section id="earlier" title="Earlier projects" intro="Data science and web projects from the Pacmann and Hacktiv8 programs.">
+        <CompactList items={earlierProjects} />
+      </Section>
+    </>
   )
 }

@@ -1,19 +1,25 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        paper: 'var(--paper)',
+        ink: 'var(--ink)',
+        graphite: 'var(--graphite)',
+        rule: 'var(--rule)',
+        link: 'var(--link)',
+        mark: 'var(--mark)',
+        panel: 'var(--panel)',
       },
+      fontFamily: {
+        sans: ['"Archivo Variable"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+      },
+      maxWidth: { page: '72rem' },
     },
   },
   plugins: [],
-};
-export default config;
+}
+export default config
