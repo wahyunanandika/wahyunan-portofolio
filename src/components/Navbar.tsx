@@ -1,5 +1,5 @@
 const links: { label: string; href: string; wide?: boolean }[] = [
-  { label: 'Work', href: '#work' },
+  { label: 'Projects', href: '#work' },
   { label: 'Papers', href: '#papers' },
   { label: 'Experience', href: '#experience', wide: true },
   { label: 'Skills', href: '#skills', wide: true },

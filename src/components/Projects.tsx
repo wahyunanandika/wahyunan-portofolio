@@ -1,10 +1,6 @@
 import { featuredProjects, otherWork, models, earlierProjects, profile, SmallProject } from '@/lib/data'
 import Section from './Section'
 
-function fmt([lat, lon]: [number, number]) {
-  return `${Math.abs(lat).toFixed(2)}°${lat < 0 ? 'S' : 'N'} ${lon.toFixed(2)}°E`
-}
-
 function CompactList({ items }: { items: SmallProject[] }) {
   return (
     <ul className="border-t border-rule">
@@ -31,8 +27,8 @@ export default function Projects() {
     <>
       <Section
         id="work"
-        title="Selected work"
-        intro="Four projects where most of the hard part was getting coordinates, scale and orientation right, with the numbers I measured."
+        title="Projects"
+        intro="Recent work in 3D vision, computer vision and GIS, with the test results from each."
       >
         <div className="space-y-20">
           {featuredProjects.map((p) => (
@@ -41,7 +37,6 @@ export default function Projects() {
               <div className="md:col-span-3 text-sm text-graphite space-y-1">
                 <p>{p.year}</p>
                 <p>{p.place}</p>
-                <p className="font-mono text-xs">{fmt(p.coords)}</p>
                 <div className="pt-3 flex flex-wrap gap-x-4 gap-y-1">
                   {p.links.map((l) => (
                     <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer"

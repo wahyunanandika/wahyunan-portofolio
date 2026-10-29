@@ -54,8 +54,9 @@ export const featuredProjects: FeaturedProject[] = [
     note:
       'RMSE is the fit of the transform against PPK camera positions, not an independent checkpoint validation. Built on dozeri83/geo-register-plugin.',
     tags: ['Python', 'COLMAP', '3DGS', '3D Tiles', 'CesiumJS', 'ArcGIS Pro'],
-    links: [],
-    status: 'Private repository',
+    links: [
+      { label: 'GitHub', url: 'https://github.com/wahyunanandika/3dtiles_georeference_3dgs' },
+    ],
   },
   {
     id: 'ar-pipeline-inspection',
@@ -125,15 +126,6 @@ export const featuredProjects: FeaturedProject[] = [
 ]
 
 // Work done at PT Inovasi Mandiri Pratama without a public repository
-// Points on the hero site map. Coordinates are rounded to city level.
-export const sites = [
-  { name: 'Bandung area', lat: -6.9, lon: 107.6, work: 'Gaussian Splatting to 3D Tiles, LoD2 models, 360° capture', href: '#gaussian-splatting-3d-tiles', anchor: 'below' },
-  { name: 'Semarang', lat: -6.99, lon: 110.42, work: 'Sidewalk obstacle geolocation', href: '#sidewalk-obstacle-geolocation', anchor: 'below' },
-  { name: 'Balikpapan', lat: -1.25, lon: 116.83, work: 'World-scale AR pipeline inspection', href: '#ar-pipeline-inspection', anchor: 'below' },
-  { name: 'Offshore NW Java', lat: -5.85, lon: 107.6, work: 'IMR positioning surveys, 2019–2023', href: '#experience', anchor: 'above' },
-  { name: 'Surabaya', lat: -7.28, lon: 112.79, work: 'Geoid modelling thesis, ITS', href: '#experience', anchor: 'below' },
-]
-
 export const otherWork = [
   'LoD2 urban building models for Kota Cimahi and three districts of Kabupaten Bandung.',
   '3D Gaussian Splatting reconstructions for offshore platform inspection (Pertamina Hulu Mahakam).',
